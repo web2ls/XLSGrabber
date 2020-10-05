@@ -12,11 +12,16 @@ inputFileElement.addEventListener('change', (event) => {
     console.log(data);
 
 
-    const columnList = [];
+    const columnHeaderList = new Map();
     for (const key in data) {
-        columnList.push(key.slice(0, 1));
+        const firstSymbolOfColumn = key.slice(0, 1);
+        if (columnHeaderList.has(firstSymbolOfColumn)) {
+            const value = columnHeaderList.get(firstSymbolOfColumn);
+            value.push(data[key]);
+        } else {
+            columnHeaderList.set(firstSymbolOfColumn, [data[key]]);
+        }
     };
-    const uniqueColumnList = Array.from(new Set(columnList));
 
-    console.dir(uniqueColumnList);
+    console.dir(columnHeaderList);
 });
