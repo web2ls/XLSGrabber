@@ -1,27 +1,37 @@
 const XLSX = require('xlsx');
-console.log(XLSX);
 
-console.log('message from js code');
+const mainElement = document.querySelector('.data');
+
+function processWb(wb) {
+    console.log(wb);
+    const sheetName = wb.Sheets['Sheet1'];
+    const arrData = XLSX.utils.sheet_to_json(sheetName);
+    console.log(arrData);
+
+    const tableElement = document.createElement('table');
+    arrData.forEach(item => {
+        const rowElement = document.createElement('tr');
+
+        const dataElement = document.createElement('td');
+        dataElement.innerText = item['Дата визита'];
+        rowElement.appendChild(dataElement);
+        tableElement.appendChild(rowElement);
+    });
+
+    mainElement.appendChild(tableElement);
+}
 
 const inputFileElement = document.getElementById('file');
 inputFileElement.addEventListener('change', (event) => {
     const file = event.target.files[0];
-    const workbook = XLSX.readFile(file.path);
-    console.log(workbook);
-    const data = workbook.Sheets.Sheet1;
-    console.log(data);
 
+    const reader = new FileReader();
 
-    const columnHeaderList = new Map();
-    for (const key in data) {
-        const firstSymbolOfColumn = key.slice(0, 1);
-        if (columnHeaderList.has(firstSymbolOfColumn)) {
-            const value = columnHeaderList.get(firstSymbolOfColumn);
-            value.push(data[key]);
-        } else {
-            columnHeaderList.set(firstSymbolOfColumn, [data[key]]);
-        }
-    };
+    reader.onload = function () {
+        let data = reader.result;
+        data = new Uint8Array(data);
+        processWb(XLSX.read(data, { type: 'array' }));
+    }
 
-    console.dir(columnHeaderList);
+    reader.readAsArrayBuffer(file);
 });
