@@ -1,6 +1,7 @@
 const XLSX = require('xlsx');
 
 const mainElement = document.querySelector('.data');
+const fields = ['Дата визита', 'Компания', 'Чек-Лист', 'Отчёт-Рассказ', 'Файл Обучение'];
 
 function processWb(wb) {
     console.log(wb);
@@ -9,12 +10,25 @@ function processWb(wb) {
     console.log(arrData);
 
     const tableElement = document.createElement('table');
+
+    const headerRow = document.createElement('tr');
+    fields.forEach(field => {
+        const tableHeaderElement = document.createElement('th');
+        tableHeaderElement.innerText = field;
+        headerRow.appendChild(tableHeaderElement);
+    });
+
+    tableElement.appendChild(headerRow);
+
     arrData.forEach(item => {
         const rowElement = document.createElement('tr');
 
-        const dataElement = document.createElement('td');
-        dataElement.innerText = item['Дата визита'];
-        rowElement.appendChild(dataElement);
+        fields.forEach(field => {
+            const dataElement = document.createElement('td');
+            dataElement.innerText = item[field] ? item[field] : '';
+            rowElement.appendChild(dataElement);
+        })
+
         tableElement.appendChild(rowElement);
     });
 
