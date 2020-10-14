@@ -1,7 +1,18 @@
 const XLSX = require('xlsx');
 
 const mainElement = document.querySelector('.data');
-const fields = ['Дата визита', 'Компания', 'Чек-Лист', 'Отчёт-Рассказ', 'Файл Обучение'];
+const fields = [
+    'Ответственный (Кто совершил визит)',
+    'Тип визита',
+    'Дата визита',
+    'Компания',
+    'Чек-Лист',
+    'Отчёт-Рассказ',
+    'Файл Обучение',
+    'Бланк предписания (зелёный)',
+    'Бланк визита (голубой)',
+    'Файл Виды работ',
+];
 
 function processWb(wb) {
     console.log(wb);
@@ -32,6 +43,7 @@ function processWb(wb) {
         tableElement.appendChild(rowElement);
     });
 
+    mainElement.style.width = '2500px';
     mainElement.appendChild(tableElement);
 }
 

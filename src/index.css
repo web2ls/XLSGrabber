@@ -1,7 +1,6 @@
 body {
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 		Helvetica, Arial, sans-serif;
 	margin: auto;
@@ -9,6 +8,12 @@ body {
 	padding: 2rem;
 	background-image: linear-gradient(to left, #ffd966, #97d077);
 	color: #fff;
+}
+
+table {
+	display: block;
+	overflow-x: auto;
+	white-space: nowrap;
 }
 
 table,
@@ -21,9 +26,4 @@ h1 {
 	text-align: center;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-}
-
-.content {
-	width: 100%;
-	overflow: auto;
 }
