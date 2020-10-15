@@ -87,3 +87,5 @@ typings/
 
 # Electron-Forge
 out/
+
+xlsGrabber-win32-x64/
